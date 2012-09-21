@@ -30,9 +30,6 @@
 
 #==================== File and Directory Names ========================
 
-maven.test.skip=true
-maven.offline=true
-
 ##### Replace server.home with the location of Tomcat 6 on your machine #####
 # path to tomcat binaries
 server.home=/opt/tomcat-esup
