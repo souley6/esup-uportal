@@ -133,6 +133,17 @@
         </init-param>
     </filter>
     
+    <!-- here the cas validate filter when using shibboleth + proxy cas authentication -->
+    <!--filter>
+      <filter-name>CAS Validate Filter</filter-name>
+      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+      <init-param>
+	<param-name>targetBeanName</param-name>
+	<param-value>runnCasValidateFilter</param-value>
+      </init-param>
+    </filter-->
+
+
     <filter>
         <filter-name>CAS Assertion ThreadLocal Filter</filter-name>
         <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
@@ -151,6 +162,10 @@
     <filter>
         <filter-name>OpenEntityManagerInViewFilter</filter-name>
         <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+        <init-param>
+            <param-name>persistenceUnitName</param-name>
+            <param-value>PortalDb</param-value>
+        </init-param>
     </filter>
 
     <filter>
@@ -367,6 +382,15 @@
         <load-on-startup>0</load-on-startup>
     </servlet>
 
+
+    <servlet>
+      <servlet-name>AxisServlet</servlet-name>
+      <display-name>Apache-Axis Servlet</display-name>
+      <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+    </servlet>
+
+
+
     <!-- [INSERT JSPC FRAGMENT HERE] -->
 
     <servlet-mapping>
@@ -407,7 +431,17 @@
         <servlet-name>AuthenticationDispatcherServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
         <url-pattern>/Logout</url-pattern>
+	<!-- for shibboleth + proxy cas authentication -->
+        <!--url-pattern>/shibLogin</url-pattern>
+        <url-pattern>/shibLogout</url-pattern-->
     </servlet-mapping>
+
+
+    <servlet-mapping>
+      <servlet-name>AxisServlet</servlet-name>
+      <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
 
     <mime-mapping>
         <extension>wbmp</extension>
